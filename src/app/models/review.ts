@@ -10,6 +10,7 @@ export class Review {
         public copies: Number,
         public available: Number,
         public frequency: string,
-        public examples: Number
+        public examples: Number,
+        public count: Number
     ){}
 }

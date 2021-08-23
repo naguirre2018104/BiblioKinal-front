@@ -22,7 +22,7 @@ export class ReviewsComponent implements OnInit {
   type = "Title";
 
   constructor(private restReview: RestReviewService) { 
-    this.review = new Review("","","",0,[],"",[],0,0,"",0);
+    this.review = new Review("","","",0,[],"",[],0,0,"",0,0);
     this.user = JSON.parse(localStorage.getItem("user")!);
   }
 
@@ -87,7 +87,7 @@ export class ReviewsComponent implements OnInit {
   }
 
   deleteReviewInfo(){
-    this.review = new Review("","","",0,[],"",[],0,0,"",0);
+    this.review = new Review("","","",0,[],"",[],0,0,"",0,0);
   }
 
   updateReview(updateReviewForm: NgForm){
@@ -98,7 +98,7 @@ export class ReviewsComponent implements OnInit {
     this.restReview.updateReview(review).subscribe((resp:any)=>{
       if(resp.reviewUpdated){
         updateReviewForm.reset();
-        this.review = new Review("","","",0,[],"",[],0,0,"",0);
+        this.review = new Review("","","",0,[],"",[],0,0,"",0,0);
         Swal.fire({
           icon: 'success',
           title: "Revista actualizada exitosamente"
@@ -141,7 +141,7 @@ export class ReviewsComponent implements OnInit {
                 title: 'Revista eliminada permanente'
               })
               this.ngOnInit();
-              this.review = new Review("","","",0,[],"",[],0,0,"",0);
+              this.review = new Review("","","",0,[],"",[],0,0,"",0,0);
             }else{
               Swal.fire({
                 icon: 'error',

@@ -17,7 +17,7 @@ export class UsersComponent implements OnInit {
   order: string = "Ascendente";
 
   constructor(private restUser: RestUserService) { 
-    this.user = new User("",0,"","","","","",0,"",[],[],[],[]);
+    this.user = new User("",0,"","","","","",0,"",[],[],[],[],0);
   }
 
   ngOnInit(): void {
@@ -74,11 +74,12 @@ export class UsersComponent implements OnInit {
   }
 
   setUserInfo(user:any){
+    console.log(user);
     this.user = user;
   }
 
   deleteUserInfo(){
-    this.user = new User("",0,"","","","","",0,"",[],[],[],[]);
+    this.user = new User("",0,"","","","","",0,"",[],[],[],[],0);
   }
 
   updateUser(userForm: NgForm){
@@ -88,7 +89,7 @@ export class UsersComponent implements OnInit {
       console.log(resp);
       if(resp.userUpdated){
         userForm.reset();
-        this.user = new User("",0,"","","","","",0,"",[],[],[],[]);
+        this.user = new User("",0,"","","","","",0,"",[],[],[],[],0);
         Swal.fire({
           icon: 'success',
           title: "Usuario actualizado exitosamente"
@@ -132,7 +133,7 @@ export class UsersComponent implements OnInit {
               })
               this.users = resp.user;
               this.ngOnInit();
-              this.user = new User("",0,"","","","","",0,"",[],[],[],[]);
+              this.user = new User("",0,"","","","","",0,"",[],[],[],[],0);
             }else{
               Swal.fire({
                 icon: 'error',

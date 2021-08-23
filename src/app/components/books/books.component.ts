@@ -22,7 +22,7 @@ export class BooksComponent implements OnInit {
   type = "Title";
 
   constructor(private restBook: RestBookService) { 
-    this.book = new Book("","","",0,[],"",[],0,0);
+    this.book = new Book("","","",0,[],"",[],0,0,0);
     this.user = JSON.parse(localStorage.getItem("user")!);
   }
 
@@ -87,7 +87,7 @@ export class BooksComponent implements OnInit {
   }
 
   deleteBookInfo(){
-    this.book = new Book("","","",0,[],"",[],0,0);
+    this.book = new Book("","","",0,[],"",[],0,0,0);
   }
 
   updateBook(updateBookForm: NgForm){
@@ -98,7 +98,7 @@ export class BooksComponent implements OnInit {
     this.restBook.updateBook(book).subscribe((resp:any)=>{
       if(resp.bookUpdated){
         updateBookForm.reset();
-        this.book = new Book("","","",0,[],"",[],0,0);
+        this.book = new Book("","","",0,[],"",[],0,0,0);
         Swal.fire({
           icon: 'success',
           title: "Libro actualizado exitosamente"
@@ -141,7 +141,7 @@ export class BooksComponent implements OnInit {
                 title: 'Libro eliminado permanente'
               })
               this.ngOnInit();
-              this.book = new Book("","","",0,[],"",[],0,0);
+              this.book = new Book("","","",0,[],"",[],0,0,0);
             }else{
               Swal.fire({
                 icon: 'error',

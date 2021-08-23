@@ -20,9 +20,9 @@ export class BooksReviewsComponent implements OnInit {
   reviews: Array<Review> = [];
 
   constructor(private restBook: RestBookService, private restReview: RestReviewService) { 
-    this.book = new Book("","","",0,[],"",[],0,0);
+    this.book = new Book("","","",0,[],"",[],0,0,0);
     this.user = JSON.parse(localStorage.getItem("user")!);
-    this.review = new Review("","","",0,[],"",[],0,0,"",0);
+    this.review = new Review("","","",0,[],"",[],0,0,"",0,0);
   }
 
   ngOnInit(): void {
@@ -36,7 +36,7 @@ export class BooksReviewsComponent implements OnInit {
   }
 
   deleteBookInfo(){
-    this.book = new Book("","","",0,[],"",[],0,0);
+    this.book = new Book("","","",0,[],"",[],0,0,0);
   }
 
   setReviewInfo(review:any){
@@ -44,7 +44,7 @@ export class BooksReviewsComponent implements OnInit {
   }
 
   deleteReviewInfo(){
-    this.review = new Review("","","",0,[],"",[],0,0,"",0);
+    this.review = new Review("","","",0,[],"",[],0,0,"",0,0);
   }
 
   returnBook(book: any){

@@ -8,6 +8,7 @@ export class Book {
         public description: string,
         public topics: any[],
         public copies: Number,
-        public available: Number
+        public available: Number,
+        public count: Number
     ){}
 }

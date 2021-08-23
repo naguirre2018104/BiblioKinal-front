@@ -12,6 +12,7 @@ export class User {
         public books: [],
         public reviews: [],
         public history_books: [],
-        public history_reviews: []
+        public history_reviews: [],
+        public count: Number
     ){}
 }

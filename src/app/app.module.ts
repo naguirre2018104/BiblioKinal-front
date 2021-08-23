@@ -17,6 +17,9 @@ import { SearchPipe } from './pipes/book/search.pipe';
 import { ReviewsComponent } from './components/reviews/reviews.component';
 import { BooksReviewsComponent } from './components/books-reviews/books-reviews.component';
 import { HistoryComponent } from './components/history/history.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -31,13 +34,15 @@ import { HistoryComponent } from './components/history/history.component';
     SearchPipe,
     ReviewsComponent,
     BooksReviewsComponent,
-    HistoryComponent
+    HistoryComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ChartsModule
   ],
   providers: [
     RestUserService

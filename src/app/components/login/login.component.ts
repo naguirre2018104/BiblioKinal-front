@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   userLogged: any;
 
   constructor(private restUser: RestUserService, private router: Router) { 
-    this.user = new User("",0,"","","","","",0,"",[],[],[],[]);
+    this.user = new User("",0,"","","","","",0,"",[],[],[],[],0);
   }
 
   ngOnInit(): void {
