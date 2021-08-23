@@ -1,0 +1,215 @@
+<div class="main p-4">
+    <div class="container">
+        <div class="jumbotron jumbotron-fluid text-light rounded p-4">
+            <div class="container">
+                <h1 class="display-4 font-weight-bolder">Revistas</h1>
+                <p class="lead">En esta sección puedes administrar todos las revistas<span class="font-weight-bolder"></span></p>
+                <button *ngIf="user.role == 'ROLE_ADMIN'" type="button" class="btn btn-lg btn-outline-light text-uppercase" data-bs-toggle="modal" data-bs-target="#createReview">Crear Revista</button>
+            </div>
+        </div>
+        <br>
+        <h1 for="order">Filtro por: </h1>
+        <div class="row">
+            <form action="" class="form-group col-md-6">
+                <select [(ngModel)]="type" name="type" id="inputType" class="form-control">
+                    <option selected>Title</option>
+                    <option>Key words</option>
+                </select>
+            </form>
+            <form action="" class="form-group col-md-6">
+                <div class="form-group">
+                    <input [(ngModel)]="search" type="search" name="search" class="form-control-lg" placeholder="Write something">
+                </div>
+            </form>
+        </div>
+        <br>
+        <div class="row">
+            <form action="" class="form-group col-md-6">
+                <select [(ngModel)]="orderType" name="order" id="inputOrderType" class="form-control">
+                    <option selected>copies</option>
+                    <option>available</option>
+                </select>
+            </form>
+            <form action="" class="form-group col-md-6">
+                <select [(ngModel)]="order" name="order" id="inputOrder" class="form-control">
+                    <option selected>Ascendente</option>
+                    <option>Descendente</option>
+                </select>
+            </form>
+        </div>
+        <br>
+        <div class="overflow-auto maxheight container">
+            <br>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <td class="text-center text-primary"><strong>Author</strong></td>
+                        <td class="text-center text-primary"><strong>Title</strong></td>
+                        <td class="text-center text-primary"><strong>Edition</strong></td>
+                        <td class="text-center text-primary"><strong>Key words</strong></td>
+                        <td class="text-center text-primary"><strong>Description</strong></td>
+                        <td class="text-center text-primary"><strong>Topics</strong></td>
+                        <td class="text-center text-primary"><strong>Copies</strong></td>
+                        <td class="text-center text-primary"><strong>Available</strong></td>
+                        <td class="text-center text-primary"><strong>Frequency</strong></td>
+                        <td class="text-center text-primary"><strong>Examples</strong></td>
+                        <td class="text-center text-primary"><strong>Options</strong></td>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let review of reviews | search: search : type | orderBy: orderType: order">
+                    <tr>
+                        <td class="text-center table-active">{{ review.author }}</td>
+                        <td class="text-center">{{ review.title }}</td>
+                        <td class="text-center table-active">{{ review.edition }}</td>
+                        <td class="text-center">{{ review.key_words }}</td>
+                        <td class="text-center table-active">{{ review.description }}</td>
+                        <td class="text-center">{{ review.topics }}</td>
+                        <td class="text-center table-active">{{ review.copies }}</td>
+                        <td class="text-center">{{ review.available }}</td>
+                        <td class="text-center table-active">{{ review.frequency }}</td>
+                        <td class="text-center">{{ review.examples }}</td>
+                        <td class="text-center">
+                            <a class="btn btn-primary" (click)="loanReview(review)">Loan</a>
+                            <a *ngIf="user.role == 'ROLE_ADMIN'" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updateReview" (click)="setReviewInfo(review)">Edit</a>
+                            <a *ngIf="user.role == 'ROLE_ADMIN'" class="btn btn-danger" (click)="deleteReview(review)">Remove</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+</div>
+
+<!-- Modal Crear Revista -->
+<div class="modal" id="createReview" tabindex="-1" aria-labelledby="createReviewLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createReviewLabel">Create Review</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="deleteReviewInfo()"></button>
+            </div>
+            <div class="modal-body">
+ 
+                <form #saveReview="ngForm" (ngSubmit)="onSubmit(saveReview)">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="inputAuthor">Author</label>
+                            <input [(ngModel)]="review.author" name="author" type="text" class="form-control" id="inputAuthor">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputTitle">Title</label>
+                            <input [(ngModel)]="review.title" name="title" type="text" class="form-control" id="inputTitle">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEdition">Edition</label>
+                            <input [(ngModel)]="review.edition" name="edition" type="number" class="form-control" id="inputEdition">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputCopies">Copies</label>
+                            <input [(ngModel)]="review.copies" name="copies" type="number" class="form-control" id="inputCopies">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputKeyWords">Key Words (Use a comma "," to separate them)</label>
+                        <input [(ngModel)]="key_words" name="key_words" type="text" class="form-control" id="inputKeyWords">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputTopics">Topics (Use a comma "," to separate them)</label>
+                        <input [(ngModel)]="topics" name="topics" type="text" class="form-control" id="inputTopics">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputDescription">Description</label>
+                        <input [(ngModel)]="review.description" name="description" type="text" class="form-control" id="inputDescription">
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="inputFrequency">Frequency</label>
+                            <input [(ngModel)]="review.frequency" name="frequency" type="text" class="form-control" id="inputFrequency">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputExamples">Examples</label>
+                            <input [(ngModel)]="review.examples" name="examples" type="text" class="form-control" id="inputExamples">
+                        </div>
+                    </div>
+                    <div class="modal-footer row">
+                        <button type="submit" class="btn btn-success btn-block" [disabled]="!saveReview.form.valid">Create</button>
+                    </div>
+                </form>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="deleteReviewInfo()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Actualizar Revista -->
+<div class="modal" id="updateReview" tabindex="-1" aria-labelledby="updateReviewLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateReviewLabel">Update Review</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="deleteReviewInfo()"></button>
+            </div>
+            <div class="modal-body">
+                <form #updateReviewForm="ngForm">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="inputUpdateAuthor">Author</label>
+                            <input [(ngModel)]="review.author" name="author" type="text" class="form-control" id="inputUpdateAuthor">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputUpdateTitle">Title</label>
+                            <input [(ngModel)]="review.title" name="title" type="text" class="form-control" id="inputUpdateTitle">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="inputUpdateEdition">Edition</label>
+                            <input [(ngModel)]="review.edition" name="edition" type="number" class="form-control" id="inputUpdateEdition">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputUpdateCopies">Copies</label>
+                            <input [(ngModel)]="review.copies" name="copies" type="number" class="form-control" id="inputUpdateCopies">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputUpdateKeyWords">Key Words (Use a comma "," to separate them)</label>
+                        <input [(ngModel)]="key_words" name="key_words" type="text" class="form-control" id="inputUpdateKeyWords">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputUpdateTopics">Topics (Use a comma "," to separate them)</label>
+                        <input [(ngModel)]="topics" name="topics" type="text" class="form-control" id="inputUpdateTopics">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputUpdateDescription">Description</label>
+                        <input [(ngModel)]="review.description" name="description" type="text" class="form-control" id="inputUpdateDescription">
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="inputUpdateFrequency">Frequency</label>
+                            <input [(ngModel)]="review.frequency" name="frequency" type="text" class="form-control" id="inputUpdateFrequency">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputUpdateExamples">Examples</label>
+                            <input [(ngModel)]="review.examples" name="examples" type="text" class="form-control" id="inputUpdateExamples">
+                        </div>
+                    </div>
+                    <div class="modal-footer row">
+                        <button type="submit" class="btn btn-success btn-block" [disabled]="!saveReview.form.valid" (click)="updateReview(saveReview)">Update</button>
+                    </div>
+                </form>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="deleteReviewInfo()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

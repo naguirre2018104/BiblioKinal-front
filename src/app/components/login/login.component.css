@@ -1,0 +1,87 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+.custom-font {
+    font-family: 'Squada One', cursive;
+}
+
+.register {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+}
+
+.register-form-l {
+    border-bottom-right-radius: 20rem;
+    border-top-right-radius: 20rem;
+    border-top-left-radius: 5rem;
+    border-bottom-left-radius: 5rem;
+}
+
+.register-form-l div button:hover {
+    color: black!important;
+}
+
+@media (max-width: 768px) {
+    .register {
+        display: block;
+        flex-direction: column;
+        margin: 0!important;
+        padding: 0!important;
+        max-width: 100vw;
+        width: 100vw;
+        padding: 1rem 0!important;
+        /* flex-direction: column; */
+    }
+    .register-form-l {
+        margin: 0!important;
+        width: 100vw;
+        border-bottom-right-radius: 0!important;
+        border-top-right-radius: 0!important;
+        border-top-left-radius: 0!important;
+        border-bottom-left-radius: 0!important;
+    }
+    .register-form-l>div {
+        width: auto;
+        margin: 0;
+        padding: 0;
+    }
+    /* .register-form-r {} */
+}
+
+.bg-custom {
+    background: #DCE35B;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #45B649, #DCE35B);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #45B649, #DCE35B); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#00EE6E", endColorstr="#0C75E6", GradientType=1);
+}
+
+button:hover {
+    color: #fff;
+}
+
+form {
+    max-width: 40rem;
+    padding: 3rem;
+}
+
+@media (max-width: 768px) {
+    form {
+        /* padding: 1rem; */
+        margin: 0!important;
+        padding: 0!important;
+    }
+}
